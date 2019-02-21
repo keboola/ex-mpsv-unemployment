@@ -10,7 +10,7 @@ class Component extends BaseComponent
 {
     public function run(): void
     {
-        // @TODO implement
+        echo "Returning data";
     }
 
     protected function getConfigClass(): string
