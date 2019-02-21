@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install libzip-dev zlib1g-dev -y --no-install-reco
         unzip \
 	&& rm -r /var/lib/apt/lists/* \
 	&& chmod +x /tmp/composer-install.sh \
-	&& /tmp/composer-install.sh
+	&& /tmp/composer-install.sh \
 	&& docker-php-ext-install zip
 
 ## Composer - deps always cached unless changed
