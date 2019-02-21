@@ -8,6 +8,9 @@ use Keboola\Component\BaseComponent;
 
 class Component extends BaseComponent
 {
+
+    private $config;
+
     public function run(): void
     {
         echo "Returning data";
@@ -21,5 +24,10 @@ class Component extends BaseComponent
     protected function getConfigDefinitionClass(): string
     {
         return ConfigDefinition::class;
+    }
+
+    public function loadConfig() :void
+    {
+        $this->config = new Config([]);
     }
 }

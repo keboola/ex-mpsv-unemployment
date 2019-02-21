@@ -8,9 +8,8 @@ use Keboola\Component\Config\BaseConfig;
 
 class Config extends BaseConfig
 {
-    // @todo implement your custom getters
-    public function getFoo() : string
+    public function getUrl()
     {
-        return $this->getValue(['parameters', 'foo']);
+        return 'https://portal.mpsv.cz/sz/stat/nz/mes';
     }
 }
