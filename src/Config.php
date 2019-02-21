@@ -8,7 +8,7 @@ use Keboola\Component\Config\BaseConfig;
 
 class Config extends BaseConfig
 {
-    public function getUrl()
+    public function getUrl(): string
     {
         return 'https://portal.mpsv.cz/sz/stat/nz/mes';
     }

@@ -13,14 +13,17 @@ class Component extends BaseComponent
 {
     public function run(): void
     {
-        $crawler = new Crawler($this->getConent('https://portal.mpsv.cz/sz/stat/nz/mes'));
+        $crawler = new Crawler($this->getContent('https://portal.mpsv.cz/sz/stat/nz/mes'));
         $files = $crawler->filterXPath('//a[contains(.,"stat")]');
         $fs = new Filesystem();
         $path = sys_get_temp_dir() . '/zips';
         $unzippedPath = sys_get_temp_dir() . '/unzipped';
         $fs->mkdir($path);
         foreach ($files as $file) {
-            $url = sprintf("https://portal.mpsv.cz/portalssz/download/getfile.do?filename=%s&_lang=cs_CZ", $file->textContent);
+            $url = sprintf(
+                "https://portal.mpsv.cz/portalssz/download/getfile.do?filename=%s&_lang=cs_CZ",
+                $file->textContent
+            );
             $this->getLogger()->info("Downloading {$file->textContent}");
             $dest = $path . '/' . $file->textContent;
             $fs->copy($url, $path . '/' . $file->textContent);
@@ -37,7 +40,7 @@ class Component extends BaseComponent
         }
     }
 
-    private function getConent($url)
+    private function getContent(string $url): string
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
