@@ -10,12 +10,13 @@ WORKDIR /code/
 COPY docker/php-prod.ini /usr/local/etc/php/php.ini
 COPY docker/composer-install.sh /tmp/composer-install.sh
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install libzip-dev zlib1g-dev -y --no-install-recommends \
         git \
         unzip \
 	&& rm -r /var/lib/apt/lists/* \
 	&& chmod +x /tmp/composer-install.sh \
 	&& /tmp/composer-install.sh
+	&& docker-php-ext-install zip
 
 ## Composer - deps always cached unless changed
 # First copy only composer files
