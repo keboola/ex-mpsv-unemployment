@@ -35,7 +35,7 @@ class Component extends BaseComponent
 
         $finder = new Finder();
 
-        foreach ($finder->in($unzippedPath)->files()->name('*Nez*') as $file) {
+        foreach ($finder->in($unzippedPath)->files()->name('/nez[^\ ].*h\./i') as $file) {
             $fs->copy($file->getPathname(), '/data/out/files/' . $file->getFilename());
         }
     }
