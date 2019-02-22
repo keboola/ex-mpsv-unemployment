@@ -20,8 +20,10 @@ class Component extends BaseComponent
         $unzippedPath = sys_get_temp_dir() . '/unzipped';
         $fs->mkdir($path);
         $i = 0;
+        /** @var Config $config */
+        $config = $this->getConfig();
         foreach ($files as $file) {
-            if(++$i > $this->getConfig()->getNumberOfFiles()){
+            if (++$i > $config->getNumberOfFiles()) {
                 break;
             }
             $url = sprintf(
