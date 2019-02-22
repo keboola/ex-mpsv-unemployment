@@ -12,4 +12,9 @@ class Config extends BaseConfig
     {
         return 'https://portal.mpsv.cz/sz/stat/nz/mes';
     }
+
+    public function getNumberOfFiles(): int
+    {
+        return (int) $this->getValue(['parameters', 'numberOfFiles']);
+    }
 }

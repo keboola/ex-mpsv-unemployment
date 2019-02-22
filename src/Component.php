@@ -19,7 +19,11 @@ class Component extends BaseComponent
         $path = sys_get_temp_dir() . '/zips';
         $unzippedPath = sys_get_temp_dir() . '/unzipped';
         $fs->mkdir($path);
+        $i = 0;
         foreach ($files as $file) {
+            if(++$i > $this->getConfig()->getNumberOfFiles()){
+                break;
+            }
             $url = sprintf(
                 "https://portal.mpsv.cz/portalssz/download/getfile.do?filename=%s&_lang=cs_CZ",
                 $file->textContent
