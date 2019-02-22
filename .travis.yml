@@ -6,7 +6,7 @@ services:
   - docker
 
 before_script:
-  - export APP_IMAGE=keboola/ex-mpsv-unemployment
+  - export APP_IMAGE=keboola-test/ex-mpsv-unemployment
   - docker -v
   - docker build -t $APP_IMAGE .
   - docker run $APP_IMAGE composer ci
