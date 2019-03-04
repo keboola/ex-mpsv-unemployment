@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyComponent;
+namespace ExtractorMpsv;
 
 use Keboola\Component\BaseComponent;
 use Symfony\Component\DomCrawler\Crawler;
@@ -19,12 +19,12 @@ class Component extends BaseComponent
         $path = sys_get_temp_dir() . '/zips';
         $unzippedPath = sys_get_temp_dir() . '/unzipped';
         $fs->mkdir($path);
-        $i = 0;
         /** @var Config $config */
         $config = $this->getConfig();
         foreach ($files as $file) {
-            if (++$i > $config->getNumberOfFiles()) {
-                break;
+            if (!$config->isFileInTimeInterval($file->textContent)) {
+                $this->getLogger()->info("Skipping file {$file->textContent}");
+                continue;
             }
             $url = sprintf(
                 "https://portal.mpsv.cz/portalssz/download/getfile.do?filename=%s&_lang=cs_CZ",

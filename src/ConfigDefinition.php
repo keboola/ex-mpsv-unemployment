@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyComponent;
+namespace ExtractorMpsv;
 
 use Keboola\Component\Config\BaseConfigDefinition;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -16,7 +16,16 @@ class ConfigDefinition extends BaseConfigDefinition
         /** @noinspection NullPointerExceptionInspection */
         $parametersNode
             ->children()
-                ->integerNode('numberOfFiles')
+                ->integerNode('fromMonth')
+                    ->isRequired()
+                ->end()
+                ->integerNode('fromYear')
+                    ->isRequired()
+                ->end()
+                ->integerNode('toMonth')
+                    ->isRequired()
+                ->end()
+                ->integerNode('toYear')
                     ->isRequired()
                 ->end()
             ->end()
