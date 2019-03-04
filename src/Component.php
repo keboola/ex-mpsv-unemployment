@@ -33,10 +33,11 @@ class Component extends BaseComponent
             $this->getLogger()->info("Downloading {$file->textContent}");
             $dest = $path . '/' . $file->textContent;
             $fs->copy($url, $path . '/' . $file->textContent);
-            $zip = new \ZipArchive();
-            $zip->open($dest);
-            $zip->extractTo($unzippedPath . '/' . $file->textContent);
-            $zip->close();
+            try {
+                $this->unzipFile($dest, $unzippedPath, $file);
+            } catch (\Throwable $e) {
+                $this->getLogger()->warning("Cannot extract file {$e->getMessage()}");
+            }
         }
 
         $finder = new Finder();
@@ -44,6 +45,14 @@ class Component extends BaseComponent
         foreach ($finder->in($unzippedPath)->files()->name('/nez[^\ ].*h\./i') as $file) {
             $fs->copy($file->getPathname(), '/data/out/files/' . $file->getFilename());
         }
+    }
+
+    private function unzipFile(string $dest, string $unzippedPath, \DOMElement $file): void
+    {
+        $zip = new \ZipArchive();
+        $zip->open($dest);
+        $zip->extractTo($unzippedPath . '/' . $file->textContent);
+        $zip->close();
     }
 
     private function getContent(string $url): string
