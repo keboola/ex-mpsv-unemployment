@@ -17,7 +17,7 @@ class Config extends BaseConfig
     public function isFileInTimeInterval(string $filename): bool
     {
         preg_match('~([0-9]{4})-([0-9]{2})~', $filename, $matches);
-        $fileDateTime = (new \DateTime())->setDate((int) $matches[1], (int) $matches[2], 1);
+        $fileDateTime = (new \DateTime())->setDate((int) $matches[1], (int) $matches[2], 2);
         if ($this->getFromDateTime() <= $fileDateTime && $this->getToDateTime() >= $fileDateTime) {
             return true;
         }
